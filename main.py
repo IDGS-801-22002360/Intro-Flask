@@ -5,8 +5,9 @@ app = Flask(__name__)       # creamos una instancia de la clase Flask
 
 @app.route('/')             # decorador que indica la ruta de la URL que se va a manejar, en este caso sera la raiz
 def index():                # creamos una función que se ejecuta cuando se accede a la ruta indicada
-    
-    return '<h1>Hello, World! --Nuevo--</h1>'
+    titulo="IDGS801"
+    lista=["Juan","Pedro","Luis"]
+    return render_template ('ejemplo1.html', titulo=titulo, lista=lista)
 
 @app.route('/hola')        # ponemos una decoracion que indica la ruta de la URL que se va a manejar, en este caso sera /hola
 def hola():                # creamos una función que se ejecuta cuando se accede a la ruta indicada

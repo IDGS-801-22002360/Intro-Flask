@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinepolis</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-card {
+            background-color: #071332;
+        }
+        .rounded-1 {
+            border-radius: 15px;
+        }
+        .rounded-2 {
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container col-8 border-0 m-5 mx-auto bg-card rounded-1 p-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card p-1 rounded-1">
+                        <div class="card-header border-0 rounded-2 bg-white">
+                            <h2>Entradas</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="cinepolisForm" method="POST" action="/">
+                                <div class="form-group mb-0">
+                                    <label for="txtNom" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control rounded-1" id="txtNom" name="txtNom" value="{{ txtNom }}">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label for="txtPer" class="form-label">Personas</label>
+                                    <input type="number" class="form-control rounded-1" id="txtPer" name="txtPer" value="{{ txtPer }}">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label for="txtBol" class="form-label">Boletos</label>
+                                    <input type="number" class="form-control rounded-1" id="txtBol" name="txtBol" value="{{ txtBol }}">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label for="">Tarjeta Cineco</label><br>
+                                    <input type="radio" id="si" name="tarjeta" value="si" {% if tarjeta == "si" %}checked{% endif %}>
+                                    <label for="si">Sí</label>
+                                    <input type="radio" id="no" name="tarjeta" value="no" {% if tarjeta == "no" %}checked{% endif %}>
+                                    <label for="no">No</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-1 rounded-1">
+                        <div class="card-header border-0 rounded-2 bg-white">
+                            <h2>Salidas</h2>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group mb-3">
+                                    <label for="txtTotal" class="form-label">Valor a pagar</label>
+                                    <input type="text" class="form-control rounded-1" id="txtTotal" name="txtTotal" value="{{ total if total else '' }}" readonly>
+                                </div>
+                            </form>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-8 mx-auto">
+                    <div class="card p-1 rounded-1">
+                        <div class="card-header border-0 rounded-2 bg-white">
+                            <h2>Acciones</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <button type="button" class="col-5 mx-auto btn btn-primary rounded-1" onclick="document.getElementById('cinepolisForm').submit();">Procesar</button>
+                                <button type="button" class="col-5 mx-auto btn btn-primary rounded-1">Salir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

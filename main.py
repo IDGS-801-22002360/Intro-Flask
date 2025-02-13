@@ -1,5 +1,14 @@
-from flask import Flask , render_template       # importamos la clase Flask del paquete flask
+from flask import Flask , render_template, request       # importamos la clase Flask del paquete flask
                                                 # el render_template nos permite renderizar un archivo HTML
+"""
+    Better Comets
+    * No nmms
+    ! Urgente
+    ? duda
+    TODO: asd
+"""
+
+
 
 app = Flask(__name__)       # creamos una instancia de la clase Flask
 
@@ -33,7 +42,6 @@ def suma(n1, n2):
     return f'<h1>La suma es: {n1 + n2}</h1>'
 
 
-@app.route('/default/')
 @app.route('/default/<string:param>')
 def default(param='Marco'):                         # se puede definir un valor por defecto para el parametro que siempre va a ser el mismo
     return f'<h1>El parametro es: {param}</h1>'
@@ -42,7 +50,7 @@ def default(param='Marco'):                         # se puede definir un valor 
 @app.route('/operas')
 def operas():                                       # podemos poner un bloque de texto en el que se puede escribir HTML, mas no es lo ideal
     return  '''                                     
-                <h1>Operaciones</h1>
+                <h1>Operaciones</h1>                
                 <form>
                     <input type="text" name="name" id="name" placeholder="Name">
                     <input type="text" name="email" id="email" placeholder="Email">
@@ -56,10 +64,30 @@ def operas():                                       # podemos poner un bloque de
 def html():
     return render_template('index.html')           # podemos renderizar un archivo HTML con el metodo render_template
 
+@app.route("/OperasBas", methods=["GET", "POST"])
+def operas1():
+    resultado = None
+    
+    if request.method == "POST":
+        n1 = request.form.get("n1")
+        n2 = request.form.get("n2")
+        operacion = request.form.get("operacion")
+        
+        if operacion == "sum":
+            resultado = int(n1) + int(n2)
+        elif operacion == "res":
+            resultado = int(n1) - int(n2)
+        elif operacion == "mul":
+            resultado = int(n1) * int(n2)
+        elif operacion == "div":
+            resultado = int(n1) / int(n2)
+        else:
+            resultado = "Operación no válida"
+    
+    return render_template("OperasBas.html", resultado=resultado)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)     # ejecutamos la aplicación en modo debug, ademas de que se indica el puerto
-
-
 
 

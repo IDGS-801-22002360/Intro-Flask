@@ -25,4 +25,4 @@ def cinepolis():
 
     return render_template("cinepolis.html", error=error, total=total, txtNom=txtNom, txtPer=txtPer, txtBol=txtBol, tarjeta=tarjeta)
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run(debug=True, port=2000)

@@ -87,6 +87,46 @@ def operas1():
     return render_template("OperasBas.html", resultado=resultado)
 
 
+@app.route("/zodiaco", methods=["GET", "POST"])
+def zodiaco():
+    txtNom = txtApePa = txtApeMa = txtNomCom = rbSex = None
+    txtDia = txtMes = txtAnio = txtEdad = txtZodiaco = txtImg = None
+    
+    if request.method == "POST":
+        txtNom = request.form.get("txtNom")
+        txtApePa = request.form.get("txtApePa")
+        txtApeMa = request.form.get("txtApeMa")
+        txtNomCom = f"{txtNom} {txtApePa} {txtApeMa}"
+        
+        rbSex = request.form.get("rbSex")
+        
+        txtDia = int(request.form.get("txtDia"))
+        txtMes = int(request.form.get("txtMes"))
+        txtAnio = int(request.form.get("txtAnio"))
+        txtEdad = 2025 - txtAnio
+        
+        zodiaco = {
+            0: ("Mono", "Mono.png"),
+            1: ("Gallo", "Gallo.png"),
+            2: ("Perro", "Perro.png"),
+            3: ("Cerdo", "Cerdo.png"),
+            4: ("Rata", "Rata.png"),
+            5: ("Buey", "Buey.png"),
+            6: ("Tigre", "Tigre.png"),
+            7: ("Liebre", "Liebre.png"),
+            8: ("Dragón", "Dragon.png"),
+            9: ("Serpiente", "Serpiente.png"),
+            10: ("Caballo", "Caballo.png"),
+            11: ("Cabra", "Cabra.png")
+        }
+        
+        signo = txtAnio % 12
+        txtZodiaco, txtImg = zodiaco[signo]
+    
+    return render_template("zodiaco.html", txtNomCom=txtNomCom, txtEdad=txtEdad, txtZodiaco=txtZodiaco, txtImg=txtImg)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=3000)     # ejecutamos la aplicación en modo debug, ademas de que se indica el puerto
 

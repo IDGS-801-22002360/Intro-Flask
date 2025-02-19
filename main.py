@@ -105,6 +105,16 @@ def zodiaco():
         txtAnio = int(request.form.get("txtAnio"))
         txtEdad = 2025 - txtAnio
         
+        
+        """
+        No
+        1. Rata
+        2. Buey
+        3. Tigre
+            
+        """
+        
+        
         zodiaco = {
             0: ("Mono", "Mono.png"),
             1: ("Gallo", "Gallo.png"),
@@ -125,6 +135,28 @@ def zodiaco():
     
     return render_template("zodiaco.html", txtNomCom=txtNomCom, txtEdad=txtEdad, txtZodiaco=txtZodiaco, txtImg=txtImg)
 
+@app.route("/cine", methods=["GET", "POST"])
+def cinepolis():
+    error = None
+    total = None
+    txtNom = txtPer = txtBol = tarjeta = None
+
+    if request.method == "POST":
+        txtNom = request.form.get("txtNom")
+        txtPer = int(request.form.get("txtPer"))
+        txtBol = int(request.form.get("txtBol"))
+        tarjeta = request.form.get("tarjeta")
+
+        if txtBol > txtPer * 7:
+            error = "No se pueden comprar más de 7 boletos por persona."
+        else:
+            total = txtBol * 12
+            if txtBol > 5:
+                total *= 0.85
+            if tarjeta == "si":
+                total *= 0.90
+
+    return render_template("cinepolis.html", error=error, total=total, txtNom=txtNom, txtPer=txtPer, txtBol=txtBol, tarjeta=tarjeta)
 
 
 if __name__ == '__main__':

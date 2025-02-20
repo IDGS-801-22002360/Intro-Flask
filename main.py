@@ -1,5 +1,10 @@
-from flask import Flask , render_template, request       # importamos la clase Flask del paquete flask
-                                                # el render_template nos permite renderizar un archivo HTML
+from flask import Flask , render_template, request
+import forms
+
+    # importamos la clase Flask del paquete flask
+    # el render_template nos permite renderizar un archivo HTML
+
+
 """
     Better Comets
     * No nmms
@@ -87,54 +92,6 @@ def operas1():
     return render_template("OperasBas.html", resultado=resultado)
 
 
-@app.route("/zodiaco", methods=["GET", "POST"])
-def zodiaco():
-    txtNom = txtApePa = txtApeMa = txtNomCom = rbSex = None
-    txtDia = txtMes = txtAnio = txtEdad = txtZodiaco = txtImg = None
-    
-    if request.method == "POST":
-        txtNom = request.form.get("txtNom")
-        txtApePa = request.form.get("txtApePa")
-        txtApeMa = request.form.get("txtApeMa")
-        txtNomCom = f"{txtNom} {txtApePa} {txtApeMa}"
-        
-        rbSex = request.form.get("rbSex")
-        
-        txtDia = int(request.form.get("txtDia"))
-        txtMes = int(request.form.get("txtMes"))
-        txtAnio = int(request.form.get("txtAnio"))
-        txtEdad = 2025 - txtAnio
-        
-        
-        """
-        No
-        1. Rata
-        2. Buey
-        3. Tigre
-            
-        """
-        
-        
-        zodiaco = {
-            0: ("Mono", "Mono.png"),
-            1: ("Gallo", "Gallo.png"),
-            2: ("Perro", "Perro.png"),
-            3: ("Cerdo", "Cerdo.png"),
-            4: ("Rata", "Rata.png"),
-            5: ("Buey", "Buey.png"),
-            6: ("Tigre", "Tigre.png"),
-            7: ("Liebre", "Liebre.png"),
-            8: ("Dragón", "Dragon.png"),
-            9: ("Serpiente", "Serpiente.png"),
-            10: ("Caballo", "Caballo.png"),
-            11: ("Cabra", "Cabra.png")
-        }
-        
-        signo = txtAnio % 12
-        txtZodiaco, txtImg = zodiaco[signo]
-    
-    return render_template("zodiaco.html", txtNomCom=txtNomCom, txtEdad=txtEdad, txtZodiaco=txtZodiaco, txtImg=txtImg)
-
 @app.route("/cine", methods=["GET", "POST"])
 def cinepolis():
     error = None
@@ -157,6 +114,64 @@ def cinepolis():
                 total *= 0.90
 
     return render_template("cinepolis.html", error=error, total=total, txtNom=txtNom, txtPer=txtPer, txtBol=txtBol, tarjeta=tarjeta)
+
+
+
+@app.route("/zodiaco", methods=["GET", "POST"])
+def zodiaco():
+    txtNom = txtApePa = txtApeMa = txtNomCom = rbSex = None
+    txtDia = txtMes = txtAnio = txtEdad = txtZodiaco = txtImg = None
+    
+    if request.method == "POST":
+        txtNom = request.form.get("txtNom")
+        txtApePa = request.form.get("txtApePa")
+        txtApeMa = request.form.get("txtApeMa")
+        txtNomCom = f"{txtNom} {txtApePa} {txtApeMa}"
+        
+        rbSex = request.form.get("rbSex")
+        
+        txtDia = int(request.form.get("txtDia"))
+        txtMes = int(request.form.get("txtMes"))
+        txtAnio = int(request.form.get("txtAnio"))
+        txtEdad = 2025 - txtAnio
+        
+        zodiaco = {
+            0: ("Mono", "Mono.png"),
+            1: ("Gallo", "Gallo.png"),
+            2: ("Perro", "Perro.png"),
+            3: ("Cerdo", "Cerdo.png"),
+            4: ("Rata", "Rata.png"),
+            5: ("Buey", "Buey.png"),
+            6: ("Tigre", "Tigre.png"),
+            7: ("Liebre", "Liebre.png"),
+            8: ("Dragón", "Dragon.png"),
+            9: ("Serpiente", "Serpiente.png"),
+            10: ("Caballo", "Caballo.png"),
+            11: ("Cabra", "Cabra.png")
+        }
+        
+        signo = txtAnio % 12
+        txtZodiaco, txtImg = zodiaco[signo]
+    
+    return render_template("zodiaco.html", txtNomCom=txtNomCom, txtEdad=txtEdad, txtZodiaco=txtZodiaco, txtImg=txtImg)
+
+
+@app.route("/alumnos", methods=["GET", "POST"])
+def alumnos():
+    mat=''
+    nom=''
+    ape=''
+    email=''
+    
+    alumno_class=forms.userForm(request.form)
+    
+    if request.method == 'POST':
+        mat = alumno_class.matricula.data
+        nom = alumno_class.nombre.data
+        ape = alumno_class.apellido.data
+        email = alumno_class.email.data
+    return render_template("Alumnos.html", form=alumno_class, mat=mat, nom=nom, ape=ape, email=email)
+
 
 
 if __name__ == '__main__':

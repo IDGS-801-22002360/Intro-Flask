@@ -5,6 +5,9 @@ from flask import g
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
 
+from conexion import connect_to_mysql, close_connection
+
+
 #* importamos la clase Flask del paquete flask
 #* el render_template nos permite renderizar un archivo HTML
 
@@ -127,23 +130,21 @@ def cinepolis():
 
 @app.route("/zodiaco", methods=["GET", "POST"])
 def zodiaco():
-    txtNom = txtApePa = txtApeMa = txtNomCom = rbSex = None
-    txtDia = txtMes = txtAnio = txtEdad = txtZodiaco = txtImg = None
+    form = forms.zodiacoForm(request.form)
+    txtNomCom = txtEdad = txtZodiaco = txtImg = None
     
-    if request.method == "POST":
-        txtNom = request.form.get("txtNom")
-        txtApePa = request.form.get("txtApePa")
-        txtApeMa = request.form.get("txtApeMa")
+    if request.method == "POST" and form.validate():
+        txtNom = form.Nombre.data
+        txtApePa = form.ApellidoPaterno.data
+        txtApeMa = form.ApellidoMaterno.data
         txtNomCom = f"{txtNom} {txtApePa} {txtApeMa}"
         
-        rbSex = request.form.get("rbSex")
-        
-        txtDia = int(request.form.get("txtDia"))
-        txtMes = int(request.form.get("txtMes"))
-        txtAnio = int(request.form.get("txtAnio"))
+        txtDia = form.DiaNacimiento.data
+        txtMes = form.MesNacimiento.data
+        txtAnio = form.AnioNacimiento.data
         txtEdad = 2025 - txtAnio
         
-        zodiaco = {
+        zodiaco_chino = {
             0: ("Mono", "Mono.png"),
             1: ("Gallo", "Gallo.png"),
             2: ("Perro", "Perro.png"),
@@ -159,9 +160,10 @@ def zodiaco():
         }
         
         signo = txtAnio % 12
-        txtZodiaco, txtImg = zodiaco[signo]
+        txtZodiaco, txtImg = zodiaco_chino[signo]
     
-    return render_template("zodiaco.html", txtNomCom=txtNomCom, txtEdad=txtEdad, txtZodiaco=txtZodiaco, txtImg=txtImg)
+    return render_template("zodiacoMac.html", form=form, txtNomCom=txtNomCom, txtEdad=txtEdad, txtZodiaco=txtZodiaco, txtImg=txtImg)
+
 
 
 @app.route("/alumnos", methods=["GET", "POST"])
@@ -198,6 +200,21 @@ def before_request():                               #* por ejemplo, esto se pued
 def after_request(response):                        #* por ejemplo, esto se puede usar para cerrar una conexión a la base de datos despues de que se haya 
     print('after1')                                 #* hecho una consulta
     return response
+
+
+@app.route('/db')
+def db():
+    conn = connect_to_mysql()
+    cursor = conn.cursor(dictionary=True)
+    
+    cursor.execute('SELECT * FROM alumnos')
+    alumnos = cursor.fetchall()
+    
+    close_connection(conn)
+    
+    return render_template('db.html', alumnos=alumnos)
+
+
 
 if __name__ == '__main__':
     csrf.init_app(app)

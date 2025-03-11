@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% import "_macros.html" as macro %}
+
+<form action="/zodiaco" method="POST" class="" novalidate>
+
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    {{ macro.camposNuevos(form.Nombre) }}
+    {{ macro.camposNuevos(form.ApellidoPaterno) }}
+    {{ macro.camposNuevos(form.ApellidoMaterno) }}
+    {{ macro.camposNuevos(form.DiaNacimiento) }}
+    {{ macro.camposNuevos(form.MesNacimiento) }}
+    {{ macro.camposNuevos(form.AnioNacimiento) }}
+    <div>
+        <label for="" class="mt-2 mb-0">Sexo</label><br>
+        {{ form.Sexo.label }}
+        {{ form.Sexo(class_='form-check-input') }}
+    </div>
+    
+    <button type="submit" class="btn btn-primary mt-3">Calcular</button>
+</form>
+
+{% if txtNomCom %}
+    <h2>Hola {{ txtNomCom }}</h2>
+    <h2>Tienes {{ txtEdad }} años</h2>
+    <h2>Tu signo zodiacal es {{ txtZodiaco }}</h2>
+    <img src="{{ url_for('static', filename='img/' + txtImg) }}" alt="{{ txtZodiaco }}" style="height: 150px;">
+{% endif %}
+{% endblock %}

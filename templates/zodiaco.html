@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.grid.css">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.grid.min.css">
     <title>Zodiaco Chino</title>
     <style>
         .bg-secondary-subtle {
             background-color: rgba(108, 117, 125, 0.5);
-        }
-        .rounded-1 {
-            border-radius: 12px;
-        }
-        .rounded-2 {
-            border-radius: 24px;
         }
     </style>
 </head>
@@ -21,21 +18,21 @@
     <div class="row">
         <div class="container col-8 mt-5">
             <div class="row">
-                <div class="card col-4 bg-secondary-subtle mx-auto rounded-2 border-0 p-0">
+                <div class="card col-4 bg-secondary-subtle mx-auto rounded-5 border-0 px-1">
                     <div class="card-body">
                         <form id="ZodiacoForm" method="POST" action="/zodiaco" class="">
                             <h4 class="text-center">Nombre</h4>
                             <div>
                                 <label for="txtNom" class="form-label mb-0">Nombre</label>
-                                <input type="text" class="form-control rounded-1 border-0" id="txtNom" name="txtNom" value="{{ txtNom }}">
+                                <input type="text" class="form-control rounded-5 border-0" id="txtNom" name="txtNom" value="{{ txtNom }}">
                             </div>
                             <div>
                                 <label for="txtApePa" class="form-label mb-0 mt-2">Apellido Paterno</label>
-                                <input type="text" class="form-control rounded-1 border-0" id="txtApePa" name="txtApePa" value="{{ txtApePa }}">
+                                <input type="text" class="form-control rounded-5 border-0" id="txtApePa" name="txtApePa" value="{{ txtApePa }}">
                             </div>
                             <div>
                                 <label for="txtApeMa" class="form-label mb-0 mt-2">Apellido Materno</label>
-                                <input type="text" class="form-control rounded-1 border-0" id="txtApeMa" name="txtApeMa" value="{{ txtApeMa }}">
+                                <input type="text" class="form-control rounded-5 border-0" id="txtApeMa" name="txtApeMa" value="{{ txtApeMa }}">
                             </div>
                             <div>
                                 <label for="" class="mt-2 mb-0">Sexo</label><br>
@@ -47,25 +44,25 @@
                             <div>
                                 <h4 class="text-center mt-2">Fecha de Nacimiento</h4>
                                 <div class="row col-12 mx-auto">
-                                    <label for="txtDia" class="form-label col-4 text-center">Dia</label>
-                                    <label for="txtMes" class="form-label col-4 text-center">Mes</label>
-                                    <label for="txtAnio" class="form-label col-4 text-center">Año</label>
+                                    <label for="txtDia" class="form-label col-5 text-center">Dia</label>
+                                    <label for="txtMes" class="form-label col-5 text-center">Mes</label>
+                                    <label for="txtAnio" class="form-label col-5 text-center">Año</label>
                                 </div>
                                 <div class="row col-12 mx-auto">
-                                    <input type="number" class="form-control col-4 rounded-1" id="txtDia" name="txtDia" value="{{ txtDia }}">
-                                    <input type="number" class="form-control col-4 rounded-1" id="txtMes" name="txtMes" value="{{ txtMes }}">
-                                    <input type="number" class="form-control col-4 rounded-1" id="txtAnio" name="txtAnio" value="{{ txtAnio }}">
+                                    <input type="number" class="form-control col-4 rounded-5" id="txtDia" name="txtDia" value="{{ txtDia }}">
+                                    <input type="number" class="form-control col-4 rounded-5" id="txtMes" name="txtMes" value="{{ txtMes }}">
+                                    <input type="number" class="form-control col-4 rounded-5" id="txtAnio" name="txtAnio" value="{{ txtAnio }}">
                                 </div>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-secondary mt-3 col-12 rounded-1 border-0">Imprimir</button>
+                                <button type="submit" class="btn btn-secondary mt-3 col-12 rounded-4 border-0 mb-1">Imprimir</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="card col-7 bg-secondary-subtle mx-auto rounded-2 border-0">
+                <div class="card col-7 bg-secondary-subtle mx-auto rounded-5 border-0 px-3">
                     <div class="card-body col-12 mt-3 p-1">
-                        <div class="card bg-white rounded-1">
+                        <div class="card bg-white rounded-4 border-0">
                             <div class="card-body">
                                 <label for="">Hola </label>
                                 <label for="" id="txtNomCom" name="txtNomCom">{{ txtNomCom if txtNomCom else '' }}</label>

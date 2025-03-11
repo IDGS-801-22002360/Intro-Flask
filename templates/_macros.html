@@ -17,12 +17,13 @@
 <td>{{field.label}}</td>
 <dd>{{field(**kwargs) | safe}}</dd>
 
-{%if field.errors %}
-    <ul>
-        {% for error in field.errors %}
-            <li class="text-danger">{{error}}</li>
-        {%endfor%}
-    </ul>
-{%endif%}
+    {%if field.errors %}
+        <ul>
+            {% for error in field.errors %}
+                <li class="text-danger">{{error}}</li>
+            {%endfor%}
+        </ul>
+    {%endif%}
 
 {%endmacro%}
+
